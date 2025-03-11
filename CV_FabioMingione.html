@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Fabio Mingione</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        #map {
+            height: 100vh;
+            width: 100vw;
+        }
+        .sections {
+            position: absolute;
+            top: 4%;
+            border-radius: 5%;
+            transform: translateX(-50%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 20px;
+            z-index: 1000;
+            left: 50%;
+        }
+        #education {
+            background: rgba(0, 0, 255, 0.5);
+        }
+        #experience {
+            background: rgba(255, 0, 0, 0.5);
+            display: none;
+        }
+        /* Navigation Buttons */
+        .nav-button {
+            position: absolute;
+            top: 93%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .nav-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        #prev { right: 51%; }
+        #next { left: 51%; }
+        .leaflet-popup-content-wrapper .leaflet-popup-content {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body style="font-family: sans-serif">
+
+<!-- Full-Screen Map -->
+<div id="map"></div>
+
+<!-- Section titles -->
+<div id="education" class="sections">Education</div>
+<div id="experience" class="sections">Experience</div>
+
+<!-- Navigation Buttons -->
+<button id="prev" class="nav-button">⬅</button>
+<button id="next" class="nav-button">➡</button>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize the map
+    var map = L.map('map', { zoomControl: false }).setView([51, 10], 6); // Center on Europe
+
+// ESRI Background
+var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+}).addTo(map);
+
+
+    // Locations with descriptions
+    var locations = [
+        { name: "1. Paris, France", lat: 48.8566, lon: 2.3522, desc: "The capital of France, known for the Eiffel Tower.", color: "rgba(0,0,255,0.5)" },
+        { name: "2. Rome, Italy", lat: 41.9028, lon: 12.4964, desc: "The capital of Italy, famous for the Colosseum.", color: "rgba(255,0,0,0.5)" },
+        { name: "3. Berlin, Germany", lat: 52.52, lon: 13.405, desc: "The capital of Germany, known for its history and culture.", color: "rgba(0,0,255,0.5)" },
+        { name: "4. Madrid, Spain", lat: 40.4168, lon: -3.7038, desc: "The capital of Spain, famous for its Royal Palace.", color: "rgba(0,0,255,0.5)" }
+    ];
+
+    var markers = [];
+    var currentIndex = 0;
+
+    // Function to create a custom numbered icon
+    function createNumberedIcon(number, color) {
+        return L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="background: ${color}; border: 2px solid rgb(60,60,60); color: white; width: 30px; height: 30px; 
+                          border-radius: 50%; display: flex; align-items: center; 
+                          justify-content: center; font-size: 16px; font-weight: bold;">
+                          ${number}</div>`,
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+    }
+
+    // Add numbered markers
+    locations.forEach((loc, index) => {
+        let marker = L.marker([loc.lat, loc.lon], { icon: createNumberedIcon(index + 1, loc.color) })
+            .addTo(map)
+            .bindPopup(`<b>${loc.name}</b><br>${loc.desc}`);
+        markers.push(marker);
+    });
+
+    // Function to move the map and center the marker properly
+    function goToLocation(index) {
+        if (index < 0) index = locations.length - 1;
+        if (index >= locations.length) index = 0;
+        currentIndex = index;
+
+        let loc = locations[currentIndex];
+
+        // Change section title
+        //if (loc.color == "rgba(255,0,0,0.5)") {
+        //    document.getElementsByClassName("sections").style.display = 'none';
+        //    document.getElementById("experience").style.display = 'block';
+        //} else if (loc.color == "rgba(0,0,255,0.5)") {
+        //    document.getElementsByClassName("sections").style.display = 'none';
+        //    document.getElementById("education").style.display = 'block';
+        //}
+
+        // Get the map's current zoom level
+        let zoomLevel = map.getZoom();
+        
+        // Move map so that the marker is at the center
+        map.panTo([loc.lat, loc.lon]);
+
+        // Open the popup after a short delay to ensure the marker is centered
+        setTimeout(() => {
+            markers[currentIndex].openPopup();
+        }, 300);
+    }
+
+    // Navigation Buttons
+    document.getElementById('prev').addEventListener('click', () => goToLocation(currentIndex - 1));
+    document.getElementById('next').addEventListener('click', () => goToLocation(currentIndex + 1));
+
+    // Enable scrolling to navigate
+    document.addEventListener("wheel", (event) => {
+        if (event.deltaY > 0) goToLocation(currentIndex + 1); // Scroll down -> Next
+        else goToLocation(currentIndex - 1); // Scroll up -> Previous
+    });
+
+    // Start at the first location
+    goToLocation(0);
+</script>
+
+</body>
+</html>
