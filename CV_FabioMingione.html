@@ -14,9 +14,24 @@
             height: 100vh;
             width: 100vw;
         }
-        .sections {
+        #pagetitle {
+            display: block;
             position: absolute;
-            top: 4%;
+            top: 2%;
+            border-radius: 5%;
+            transform: translateX(-50%);
+            color: rgb(0,0,60);
+            border: none;
+            padding: 10px 15px 70px 15px;
+            font-size: 20px;
+            z-index: 500;
+            left: 50%;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .sections {
+            display: block;
+            position: absolute;
+            top: 7%;
             border-radius: 5%;
             transform: translateX(-50%);
             color: white;
@@ -53,6 +68,7 @@
         #next { left: 51%; }
         .leaflet-popup-content-wrapper .leaflet-popup-content {
             font-family: Arial, Helvetica, sans-serif;
+            min-width: 500px;
         }
     </style>
 </head>
@@ -60,6 +76,9 @@
 
 <!-- Full-Screen Map -->
 <div id="map"></div>
+
+<!-- Section titles -->
+<div id="pagetitle">Fabio Mingione, Software Engineer</div>
 
 <!-- Section titles -->
 <div id="education" class="sections">Education</div>
@@ -82,10 +101,13 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
 
     // Locations with descriptions
     var locations = [
-        { name: "1. Paris, France", lat: 48.8566, lon: 2.3522, desc: "The capital of France, known for the Eiffel Tower.", color: "rgba(0,0,255,0.5)" },
-        { name: "2. Rome, Italy", lat: 41.9028, lon: 12.4964, desc: "The capital of Italy, famous for the Colosseum.", color: "rgba(255,0,0,0.5)" },
-        { name: "3. Berlin, Germany", lat: 52.52, lon: 13.405, desc: "The capital of Germany, known for its history and culture.", color: "rgba(0,0,255,0.5)" },
-        { name: "4. Madrid, Spain", lat: 40.4168, lon: -3.7038, desc: "The capital of Spain, famous for its Royal Palace.", color: "rgba(0,0,255,0.5)" }
+        { name: "2008-09 - 2013-06, Liceo Scientifico Piccinini, Pesaro (Italy)", lat: 43.920571537400825, lon: 12.90766057099907, desc: "Scientific High School Diploma<br>Final grade: 100/100", color: "rgba(0,0,255,0.5)" },
+        { name: "2011-09 - 2012-06, St. Joseph by-the-Sea, Staten Island (NY)", lat: 40.5258, lon: -74.1774, desc: "Senior Year in the US", color: "rgba(0,0,255,0.5)" },
+        { name: "2013-10 - 2016-07, Politecnico di Milano (Italy)", lat: 45.5015632602915, lon: 9.154596748402858, desc: "BSc in Aerospace Engineering<br>Final grade: 102/110<br><br>Major focus: Mathematical and numerical analysis, Physics, Statics and dynamics of rigid bodies and fluids, Structural analysis, Fundamentals of aerospace systems, Thermodynamics, Materials, Electronics, Control theory, Propulsion", color: "rgba(0,0,255,0.5)" },
+        { name: "2016-09 - 2022-03, TU Delft (the Netherlands)", lat: 51.99011433034388, lon: 4.375579094773364, desc: "MSc in Space Engineering<br>Final grade: 7.5/10<br><br>Major focus: Space Systems Engineering, Microsatellites, Mechatronics and Robotics, Space Instrumentation, Space Propulsion, Orbital Mechanics<br><br>MSc Thesis: <a href='https://repository.tudelft.nl/record/uuid:e04fab02-bfa6-47f5-b9be-1e85b2abf416'>Microvibration test bench for tiny reaction wheels</a><br>          Tools: Matlab, CATIA V5, Arduino, MPU6050 Gyroscope, Hall Sensor, Makerbot 3D Printer, Python (OpenCV), ECSS-E-HB-32-26A", color: "rgba(0,0,255,0.5)" },
+        { name: "2017-09 - 2018-02, Airbus Defence & Space, Friedrichshafen (Germany)", lat: 47.669501862481646, lon: 9.389315603441345, desc: "Software Engineering internship (METimage radiometer)<br><br>• Development of reference frame management and manipulation toolbox<br>• Integration of DOORS output in the performance database (geometric/radiometric models)<br>• Integration of the reference frames toolbox in PEET (Pointing Error Engineering Tool, by ESA)<br>• Line Of Sight 3D animation with VPython to visualize pointing errors<br>• Unit testing of GPP/IDS (Ground Processor Prototype/Instrument Data Simulator) Software<br><br>Tools: Linux, Python, Matlab, Git, PEET", color: "rgba(255,0,0,0.5)" },
+        { name: "2020-06 - 2020-11, Collins Aerospace on behalf of AKKA, Heidelberg (Germany)", lat: 49.42475767051419, lon: 8.637370994524945, desc: "Mechanical/Electrical Test Engineer<br><br>• Test plans for new reaction wheels<br>• Thermal vacuum chamber tests (with thermistors+thermal camera)<br>• Concept generation of blocking mechanisms for the rotor of a magnetic bearing wheel<br>• Electrical measurements on transformers<br>• Re-assembly of a force measurement test bench (Hexapod)<br><br>Tools: TV chamber, Thermal camera, Wheel controller, Oscilloscope,<br>ECSS-E-ST-10-03C, ECSS-E-ST-10-02C, ECSS-Q-ST-70-02C", color: "rgba(255,0,0,0.5)" },
+        { name: "2022-01 - now, CNMCA (Italian Air Force) on behalf of Akkodis, Pomezia (Italy)", lat: 41.671332833990675, lon: 12.452481741310592, desc: "Software Engineer for operational meteorology<br><br>• Handling and archiving of raw satellite data (MSG, MTG, Aqua/Terra, SUOMI-NPP, NOAA-POES, GOES, METOP, Feng-Yun)<br>• Data processing and visualization<br>• Software maintenance and modernization<br>• Improvement of meteorological algorithms<br>• Image filtering/processing<br>• Distribution of final products to end users<br>• Pipeline creation and automation<br>• SW Manuals and Documentation<br><br>Tools: Bash, Python, Fortran, Matlab, C, Satpy (Pytroll), gdal, cartopy, matplotlib, keras/tensorflow, CGI 2met!, crontab, ecflow, eccodes, Trello, RT-STPS, CSPP, IPOPP/MODISL1DB, Panoply, McIDAS", color: "rgba(255,0,0,0.5)" },
     ];
 
     var markers = [];
@@ -121,13 +143,13 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
         let loc = locations[currentIndex];
 
         // Change section title
-        //if (loc.color == "rgba(255,0,0,0.5)") {
-        //    document.getElementsByClassName("sections").style.display = 'none';
-        //    document.getElementById("experience").style.display = 'block';
-        //} else if (loc.color == "rgba(0,0,255,0.5)") {
-        //    document.getElementsByClassName("sections").style.display = 'none';
-        //    document.getElementById("education").style.display = 'block';
-        //}
+        if (loc.color == "rgba(255,0,0,0.5)") {
+            document.querySelectorAll(".sections").forEach(el => el.style.display = 'none');
+            document.getElementById("experience").style.display = 'block';
+        } else if (loc.color == "rgba(0,0,255,0.5)") {
+            document.querySelectorAll(".sections").forEach(el => el.style.display = 'none');
+            document.getElementById("education").style.display = 'block';
+        }
 
         // Get the map's current zoom level
         let zoomLevel = map.getZoom();
