@@ -33,7 +33,7 @@
         /* Button styling */
         .info-button {
             flex: 1;
-            min-width: 200px;
+            min-width: 230px;
             max-width: 400px;
             text-align: center;
             background: rgba(6, 62, 41, 0.8);
@@ -67,7 +67,7 @@
             border-radius: 0px 0px 5px 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             z-index: 9999;
-            width: 200px;
+            width: 230px;
             text-align: center;
         }
 
@@ -355,7 +355,7 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
         
         // Move map so that the marker is at the center
         if (window.screen.height >= 1000) {
-            map.panTo([loc.lat+2, loc.lon]);
+            map.panTo([loc.lat+2.5, loc.lon]);
         } else {
             map.panTo([loc.lat+3.5, loc.lon]);
         }
