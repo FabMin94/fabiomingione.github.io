@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Fabio Mingione</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/svgs/solid/f.svg>
     <style>
         html, body {
             height: 100%;
@@ -14,32 +16,84 @@
             height: 100vh;
             width: 100vw;
         }
-        #pagetitle {
-            display: block;
+        /* Flex container for buttons & title */
+        .container {
             position: absolute;
             top: 2%;
-            border-radius: 5%;
-            transform: translateX(-50%);
-            color: rgb(0,0,60);
-            border: none;
-            padding: 10px 15px 70px 15px;
-            font-size: 20px;
-            z-index: 500;
             left: 50%;
-            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 1000px;
+            z-index: 1000;
+            gap: 70px;
         }
+
+        /* Button styling */
+        .info-button {
+            flex: 1;
+            min-width: 100px;
+            max-width: 400px;
+            text-align: center;
+            background: rgba(6, 62, 41, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Button hover effect */
+        .info-button:hover {
+            background: rgb(6, 62, 41);
+        }
+
+        /* Dropdowns */
+        .dropdown-info {
+            display: none;
+            position: fixed;  /* Ensure dropdown stays in place */
+            top: 15%;  /* Adjust dropdown position */
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+
+        .dropcont {
+            position: relative;  /* Makes dropdown position relative to this container */
+            display: inline-block;  /* Prevents it from stretching */
+            text-align: center;
+        }
+
+        /* Title box */
+        #pagetitle {
+            position: relative;
+            text-align: center;
+            color: rgb(0, 0, 60);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            flex: 0 0 auto; /* Prevents it from growing/shrinking */
+        }
+
+        /* Sections inside the title */
         .sections {
             display: block;
-            position: absolute;
-            top: 7%;
-            border-radius: 5%;
-            transform: translateX(-50%);
-            color: white;
-            border: none;
-            padding: 10px 15px;
+            margin: auto;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
             font-size: 20px;
-            z-index: 1000;
-            left: 50%;
+            color: white;
+            width: 130px;
+            text-align: center;
         }
         #education {
             background: rgba(0, 0, 255, 0.5);
@@ -48,6 +102,77 @@
             background: rgba(255, 0, 0, 0.5);
             display: none;
         }
+        #cs {
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+        #la {
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+        #ac {
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+        #ho {
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+        /* Contact Button */
+        .dropdown {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            display: inline-block;
+            z-index: 9999;
+        }
+
+        .contact-button {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 9998;
+        }
+
+        .contact-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Dropdown Content */
+        .dropdown-content {
+            display: none;
+            position: absolute;  /* Change from relative to absolute */
+            top: 100%;  /* Position it below the button */
+            left: 0;
+            background-color: white;
+            min-width: 250px;
+            z-index: 1;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Show dropdown when hovering over .dropdown (not just the button) */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Dropdown links */
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
         /* Navigation Buttons */
         .nav-button {
             position: absolute;
@@ -67,22 +192,62 @@
         #prev { right: 51%; }
         #next { left: 51%; }
         .leaflet-popup-content-wrapper .leaflet-popup-content {
-            font-family: Arial, Helvetica, sans-serif;
-            min-width: 500px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 16px;
+            min-width: 600px;
         }
     </style>
 </head>
-<body style="font-family: sans-serif">
+<body style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif";>
 
 <!-- Full-Screen Map -->
 <div id="map"></div>
 
-<!-- Section titles -->
-<div id="pagetitle">Fabio Mingione, Software Engineer</div>
+<div class="container">
+    <div class="dropcont">
+        <div class="info-button" id="coding-skills" data-dropdown="coding-dropdown">Coding Skills</div>
+        <div id="coding-dropdown" class="dropdown-info">
+            <p>Details about Coding Skills...</p>
+        </div>
+    </div>
+    <div class="info-button" id="languages" data-dropdown="languages-dropdown">Languages</div>
+    <!-- Section titles -->
+    <div id="pagetitle">Fabio Mingione, Software Engineer<br>
+        <!-- Section titles -->
+        <div id="education" class="sections">Education</div>
+        <div id="experience" class="sections">Experience</div>
+        <div id="cs" class="sections">Coding skills</div>
+        <div id="la" class="sections">Languages</div>
+        <div id="ac" class="sections">Courses</div>
+        <div id="ho" class="sections">Hobbies</div>
+    </div>
+    <div class="info-button" id="additional-courses" data-dropdown="courses-dropdown">Additional Courses</div>
+    <div class="info-button" id="hobbies" data-dropdown="hobbies-dropdown">Hobbies</div>
+</div>
 
-<!-- Section titles -->
-<div id="education" class="sections">Education</div>
-<div id="experience" class="sections">Experience</div>
+<!-- Dropdowns (Initially Hidden) -->
+
+<div id="languages-dropdown" class="dropdown-info">
+    <p>Details about Languages...</p>
+</div>
+<div id="courses-dropdown" class="dropdown-info">
+    <p>Details about Additional Courses...</p>
+</div>
+<div id="hobbies-dropdown" class="dropdown-info">
+    <p>Details about Hobbies...</p>
+</div>
+
+<!-- Contacts dropdown menu -->
+<div class="dropdown">
+    <button class="contact-button">Contacts &nbsp; 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a><i class="fa fa-mobile fa-lg" aria-hidden="true"></i>&nbsp; +39 3515252240 </a>
+      <a href="mailto:mingionefabio@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; mingionefabio@gmail.com</a>
+      <a href="https://www.linkedin.com/in/fabiomingione/"><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp; /in/fabiomingione</a>
+    </div>
+</div>
 
 <!-- Navigation Buttons -->
 <button id="prev" class="nav-button">⬅</button>
@@ -107,7 +272,7 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
         { name: "2016-09 - 2022-03, TU Delft (the Netherlands)", lat: 51.99011433034388, lon: 4.375579094773364, desc: "MSc in Space Engineering<br>Final grade: 7.5/10<br><br>Major focus: Space Systems Engineering, Microsatellites, Mechatronics and Robotics, Space Instrumentation, Space Propulsion, Orbital Mechanics<br><br>MSc Thesis: <a href='https://repository.tudelft.nl/record/uuid:e04fab02-bfa6-47f5-b9be-1e85b2abf416'>Microvibration test bench for tiny reaction wheels</a><br>          Tools: Matlab, CATIA V5, Arduino, MPU6050 Gyroscope, Hall Sensor, Makerbot 3D Printer, Python (OpenCV), ECSS-E-HB-32-26A", color: "rgba(0,0,255,0.5)" },
         { name: "2017-09 - 2018-02, Airbus Defence & Space, Friedrichshafen (Germany)", lat: 47.669501862481646, lon: 9.389315603441345, desc: "Software Engineering internship (METimage radiometer)<br><br>• Development of reference frame management and manipulation toolbox<br>• Integration of DOORS output in the performance database (geometric/radiometric models)<br>• Integration of the reference frames toolbox in PEET (Pointing Error Engineering Tool, by ESA)<br>• Line Of Sight 3D animation with VPython to visualize pointing errors<br>• Unit testing of GPP/IDS (Ground Processor Prototype/Instrument Data Simulator) Software<br><br>Tools: Linux, Python, Matlab, Git, PEET", color: "rgba(255,0,0,0.5)" },
         { name: "2020-06 - 2020-11, Collins Aerospace on behalf of AKKA, Heidelberg (Germany)", lat: 49.42475767051419, lon: 8.637370994524945, desc: "Mechanical/Electrical Test Engineer<br><br>• Test plans for new reaction wheels<br>• Thermal vacuum chamber tests (with thermistors+thermal camera)<br>• Concept generation of blocking mechanisms for the rotor of a magnetic bearing wheel<br>• Electrical measurements on transformers<br>• Re-assembly of a force measurement test bench (Hexapod)<br><br>Tools: TV chamber, Thermal camera, Wheel controller, Oscilloscope,<br>ECSS-E-ST-10-03C, ECSS-E-ST-10-02C, ECSS-Q-ST-70-02C", color: "rgba(255,0,0,0.5)" },
-        { name: "2022-01 - now, CNMCA (Italian Air Force) on behalf of Akkodis, Pomezia (Italy)", lat: 41.671332833990675, lon: 12.452481741310592, desc: "Software Engineer for operational meteorology<br><br>• Handling and archiving of raw satellite data (MSG, MTG, Aqua/Terra, SUOMI-NPP, NOAA-POES, GOES, METOP, Feng-Yun)<br>• Data processing and visualization<br>• Software maintenance and modernization<br>• Improvement of meteorological algorithms<br>• Image filtering/processing<br>• Distribution of final products to end users<br>• Pipeline creation and automation<br>• SW Manuals and Documentation<br><br>Tools: Bash, Python, Fortran, Matlab, C, Satpy (Pytroll), gdal, cartopy, matplotlib, keras/tensorflow, CGI 2met!, crontab, ecflow, eccodes, Trello, RT-STPS, CSPP, IPOPP/MODISL1DB, Panoply, McIDAS", color: "rgba(255,0,0,0.5)" },
+        { name: "2022-01 - now, CNMCA (Italian Air Force) on behalf of Akkodis, Pomezia (Italy)", lat: 41.671332833990675, lon: 12.452481741310592, desc: "Software Engineer for operational meteorology<br><br>• Handling and archiving of satellite (MSG, MTG, Aqua/Terra, SUOMI-NPP, NOAA-POES, GOES, METOP, Himawari, Feng-Yun), radar, and lightning data<br>• Data processing and visualization<br>• Pipeline creation and automation<br>• Software maintenance and modernization<br>• Improvement of meteorological algorithms<br>• Image filtering/processing<br>• Validation and calibration of rain estimation products<br>• Distribution of final products to end users<br>• SW Manuals and Documentation<br><br>Tools: Bash, Python, Fortran90/77, Matlab, C, Satpy (Pytroll), gdal, cartopy, matplotlib, keras/tensorflow, CGI 2met!, NWCGEO/NWCPY, EUMDAC, European Weather Cloud, Image Magick, crontab, ecflow, eccodes, Trello, RT-STPS, CSPP, IPOPP/MODISL1DB, Panoply, McIDAS<br>Data formats: BUFR, GRIB1/2, NETCDF, HDF, HRIT, LRIT, CADU, PDS, XPIF, CSV, ASCII, binary", color: "rgba(255,0,0,0.5)" },
     ];
 
     var markers = [];
@@ -132,15 +297,16 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
             .addTo(map)
             .bindPopup(`<b>${loc.name}</b><br>${loc.desc}`);
         markers.push(marker);
+        marker.on('click', () => goToLocation(index));
     });
 
     // Function to move the map and center the marker properly
     function goToLocation(index) {
-        if (index < 0) index = locations.length - 1;
-        if (index >= locations.length) index = 0;
-        currentIndex = index;
+        //if (index < 0) index = locations.length - 1;
+        //if (index >= locations.length) index = 0;
+        //currentIndex = index;
 
-        let loc = locations[currentIndex];
+        let loc = locations[index];
 
         // Change section title
         if (loc.color == "rgba(255,0,0,0.5)") {
@@ -155,23 +321,88 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
         let zoomLevel = map.getZoom();
         
         // Move map so that the marker is at the center
-        map.panTo([loc.lat, loc.lon]);
+        if (window.screen.height >= 1000) {
+            map.panTo([loc.lat+2, loc.lon]);
+        } else {
+            map.panTo([loc.lat+3.5, loc.lon]);
+        }
 
         // Open the popup after a short delay to ensure the marker is centered
         setTimeout(() => {
-            markers[currentIndex].openPopup();
+            markers[index].openPopup();
         }, 300);
     }
 
+    // List of elements (markers + buttons)
+    const elements = [
+        { type: "marker", id: 1 }, 
+        { type: "marker", id: 2 }, 
+        { type: "marker", id: 3 },
+        { type: "marker", id: 4 },
+        { type: "marker", id: 5 },
+        { type: "marker", id: 6 },
+        { type: "marker", id: 7 },
+        { type: "button", id: "coding-skills", dropdown: "coding-dropdown" , section: "cs"},
+        { type: "button", id: "languages", dropdown: "languages-dropdown", section: "la"},
+        { type: "button", id: "additional-courses", dropdown: "courses-dropdown", section: "ac"},
+        { type: "button", id: "hobbies", dropdown: "hobbies-dropdown", section: "ho"}
+    ];
+
+    function showNextElement(index) {
+        if (index < 0) index = elements.length - 1;
+        if (index >= elements.length) index = 0;
+        currentIndex = index;
+
+        // Close all popups when switching to a new element
+        markers.forEach(m => m.closePopup());
+
+        // Hide all dropdowns first
+        document.querySelectorAll(".dropdown-info").forEach(el => el.style.display = "none");
+
+        let currentElement = elements[currentIndex];
+
+        if (currentElement.type === "marker") {
+            // Show Leaflet popup for normal markers
+            goToLocation(currentElement.id - 1);
+        } else if (currentElement.type === "button") {
+            document.querySelectorAll(".sections").forEach(el => el.style.display = 'none');
+            document.getElementById(currentElement.section).style.display = 'block';
+            // Show dropdown for buttons
+            let dropdown = document.getElementById(currentElement.dropdown);
+            if (dropdown) {
+                dropdown.style.display = "block";
+            }
+        }
+    }
+
     // Navigation Buttons
-    document.getElementById('prev').addEventListener('click', () => goToLocation(currentIndex - 1));
-    document.getElementById('next').addEventListener('click', () => goToLocation(currentIndex + 1));
+    document.getElementById('prev').addEventListener('click', () => showNextElement(currentIndex - 1));
+    document.getElementById('next').addEventListener('click', () => showNextElement(currentIndex + 1));
 
     // Enable scrolling to navigate
     document.addEventListener("wheel", (event) => {
-        if (event.deltaY > 0) goToLocation(currentIndex + 1); // Scroll down -> Next
-        else goToLocation(currentIndex - 1); // Scroll up -> Previous
+        if (event.deltaY > 0) showNextElement(currentIndex + 1); // Scroll down -> Next
+        else showNextElement(currentIndex - 1); // Scroll up -> Previous
     });
+
+    // Allow manual clicks on buttons
+    document.querySelectorAll(".info-button").forEach(button => {
+        button.addEventListener("click", function () {
+            let currentId = this.id;
+            let newIndex = -1;
+
+            for (let i=0; i<elements.length; i++) {
+                if (elements[i].id === currentId) {
+                    newIndex = i;
+                    break;
+                }
+            }
+
+            if (newIndex !== -1) {
+                showNextElement(newIndex);
+            }
+            })
+        });
 
     // Start at the first location
     goToLocation(0);
