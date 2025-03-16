@@ -100,6 +100,10 @@
             flex: 0 0 auto; /* Prevents it from growing/shrinking */
         }
 
+        #pagetitle span {
+            display: none;
+        }
+
         /* Sections inside the title */
         .sections {
             display: block;
@@ -225,6 +229,88 @@
             background-color: rgb(240, 240, 240);
             margin: 0px -10px 0px -10px;
         }
+
+        .top-buttons, .bottom-buttons {
+            display: none;
+        }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 1550px) {
+            .info-button {
+                min-width: 180px;
+            }
+            .dropdown-info {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 1320px) {
+            #photo {
+                top: 7%;
+                left: 60%;
+            }
+
+            .desktop {
+                display: none;
+            }
+
+            #pagetitle {
+                position: absolute;
+                top: 5%;
+                right: 60%;
+                transform: translateX(40%);
+                font-size: 16px; /* Make the title smaller */
+                padding: 10px;
+            }
+
+            #pagetitle span {
+                display: block;
+            }
+            #pagetitle spin {
+                display: none;
+            }
+
+            .sections {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .leaflet-popup-content {
+                min-width: 90% !important; /* Prevents overflow */
+                max-height: 200px !important;
+                word-wrap: break-word;
+                overflow: auto;
+            }
+        }
+
+        /* Adjust for very small devices (like smartphones) */
+        @media (max-width: 480px) {
+            .info-button {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            .dropdown-info {
+                font-size: 14px;
+            }
+
+            #pagetitle, .sections, .contact-button {
+                font-size: 14px;
+            }
+
+            .container {
+                top: 6.5%;
+            }
+            #pagetitle {
+                right: 65%;
+            }
+
+            #photo {
+                top: 7.5%;
+                left: 65%;
+            }
+        }
     </style>
 </head>
 <body style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif";>
@@ -233,6 +319,43 @@
 <div id="map"></div>
 
 <div class="container">
+    <div class="dropcont desktop">
+        <div class="info-button" id="coding-skills" data-dropdown="coding-dropdown">Coding Skills</div>
+        <div id="coding-dropdown" class="dropdown-info">
+            <p>Bash <br><div class="grey">Python</div> Matlab <br> <div class="grey">Fortran 90/77 </div> C <br> <div class="grey">HTML/CSS </div> Javascript/jQuery <br><div class="grey"> Java </div> Git</p>
+        </div> 
+    </div>
+    <div class="dropcont desktop">
+        <div class="info-button" id="languages" data-dropdown="languages-dropdown">Languages</div>
+        <div id="languages-dropdown" class="dropdown-info">
+            <p>ITALIAN - Mother tongue <br> <div class="grey">ENGLISH - Fluent <br> • TOEFL iBT (2016-05): 106/120 <br> • GRE General Test (2016-04): <br>Verbal 157/170<br>Quantitative 163/170<br>Writing 4.0/6.0</div> SPANISH - Intermediate <br><div class="grey lower-corners"> GERMAN - Beginner <br> • Erasmus+ OLS Test (2018-02): B2</div> </p>
+        </div>
+    </div>
+    <!-- Section titles -->
+    <div id="pagetitle">Fabio Mingione<spin>,</spin><span><br></span> Software Engineer<br>
+        <!-- Section titles -->
+        <div id="education" class="sections">Education</div>
+        <div id="experience" class="sections">Experience</div>
+        <div id="cs" class="sections">Coding skills</div>
+        <div id="la" class="sections">Languages</div>
+        <div id="ac" class="sections">Courses</div>
+        <div id="ho" class="sections">Hobbies</div>
+    </div>
+    <div class="dropcont desktop">
+        <div class="info-button" id="additional-courses" data-dropdown="courses-dropdown">Additional Courses</div>
+        <div id="courses-dropdown" class="dropdown-info">
+            <p> <a href="https://www.udemy.com/certificate/UC-87d50284-7b2d-495d-9aaa-8fc6139e5791/" >Deep Learning A-Z: Hands-On Artificial Neural Networks (Udemy)</a> <br> <div class="grey">International School on Applications with the Newest Multispectral Environmental Satellites (2022-06-20/29, EUMETSAT)</div> <a href="https://www.udemy.com/certificate/UC-874b40d2-4252-4546-8d3c-89ee534b6059/">Learn JIRA with real-world examples (+Confluence bonus) (Udemy)</a> <br> <div class="grey"><a href="https://www.udemy.com/certificate/UC-33852ead-e350-4e8d-aa40-3fb14850eebc/">Git Complete: The definitive, step-by-step guide to Git (Udemy)</a></div> <a href="https://courses.edx.org/certificates/89a5c5ba05d74fccb5da216a4ba3d8db">The Quantum Internet and Quantum Computers: How Will They Change the World? (DelftX)</a></p>
+        </div>
+    </div>
+    <div class="dropcont desktop">
+        <div class="info-button" id="hobbies" data-dropdown="hobbies-dropdown">Hobbies</div>
+        <div id="hobbies-dropdown" class="dropdown-info">
+            <p>Chess <br> <div class="grey">Soccer</div> Running <br> <div class="grey">Hiking</div> Guitar <br> <div class="grey">Piano</div> Car maintenance <br> <div class="grey lower-corners">Traveling</div></p>
+        </div>
+    </div>
+</div>
+
+<div class="top-buttons">
     <div class="dropcont">
         <div class="info-button" id="coding-skills" data-dropdown="coding-dropdown">Coding Skills</div>
         <div id="coding-dropdown" class="dropdown-info">
@@ -245,16 +368,8 @@
             <p>ITALIAN - Mother tongue <br> <div class="grey">ENGLISH - Fluent <br> • TOEFL iBT (2016-05): 106/120 <br> • GRE General Test (2016-04): <br>Verbal 157/170<br>Quantitative 163/170<br>Writing 4.0/6.0</div> SPANISH - Intermediate <br><div class="grey lower-corners"> GERMAN - Beginner <br> • Erasmus+ OLS Test (2018-02): B2</div> </p>
         </div>
     </div>
-    <!-- Section titles -->
-    <div id="pagetitle">Fabio Mingione, Software Engineer<br>
-        <!-- Section titles -->
-        <div id="education" class="sections">Education</div>
-        <div id="experience" class="sections">Experience</div>
-        <div id="cs" class="sections">Coding skills</div>
-        <div id="la" class="sections">Languages</div>
-        <div id="ac" class="sections">Courses</div>
-        <div id="ho" class="sections">Hobbies</div>
-    </div>
+</div>
+<div class="bottom-buttons">
     <div class="dropcont">
         <div class="info-button" id="additional-courses" data-dropdown="courses-dropdown">Additional Courses</div>
         <div id="courses-dropdown" class="dropdown-info">
@@ -297,19 +412,19 @@
 
 // ESRI Background
 var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+	attribution: 'Tiles &copy; Esri'
 }).addTo(map);
 
 
     // Locations with descriptions
     var locations = [
-        { name: "2008-09 - 2013-06, Liceo Scientifico Piccinini, Pesaro (Italy)", lat: 43.920571537400825, lon: 12.90766057099907, desc: "Scientific High School Diploma<br>Final grade: 100/100", color: "rgba(0,0,255,0.5)" },
-        { name: "2011-09 - 2012-06, St. Joseph by-the-Sea, Staten Island (NY)", lat: 40.5258, lon: -74.1774, desc: "Senior Year in the US", color: "rgba(0,0,255,0.5)" },
-        { name: "2013-10 - 2016-07, Politecnico di Milano (Italy)", lat: 45.5015632602915, lon: 9.154596748402858, desc: "BSc in Aerospace Engineering<br>Final grade: 102/110<br><br>Major focus: Mathematical and numerical analysis, Physics, Statics and dynamics of rigid bodies and fluids, Structural analysis, Fundamentals of aerospace systems, Thermodynamics, Materials, Electronics, Control theory, Propulsion", color: "rgba(0,0,255,0.5)" },
-        { name: "2016-09 - 2022-03, TU Delft (the Netherlands)", lat: 51.99011433034388, lon: 4.375579094773364, desc: "MSc in Space Engineering<br>Final grade: 7.5/10<br><br>Major focus: Space Systems Engineering, Microsatellites, Mechatronics and Robotics, Space Instrumentation, Space Propulsion, Orbital Mechanics<br><br>MSc Thesis: <a href='https://repository.tudelft.nl/record/uuid:e04fab02-bfa6-47f5-b9be-1e85b2abf416'>Microvibration test bench for tiny reaction wheels</a><br>          Tools: Matlab, CATIA V5, Arduino, MPU6050 Gyroscope, Hall Sensor, Makerbot 3D Printer, Python (OpenCV), ECSS-E-HB-32-26A", color: "rgba(0,0,255,0.5)" },
-        { name: "2017-09 - 2018-02, Airbus Defence & Space, Friedrichshafen (Germany)", lat: 47.669501862481646, lon: 9.389315603441345, desc: "Software Engineering internship (METimage radiometer)<br><br>• Development of reference frame management and manipulation toolbox<br>• Integration of DOORS output in the performance database (geometric/radiometric models)<br>• Integration of the reference frames toolbox in PEET (Pointing Error Engineering Tool, by ESA)<br>• Line Of Sight 3D animation with VPython to visualize pointing errors<br>• Unit testing of GPP/IDS (Ground Processor Prototype/Instrument Data Simulator) Software<br><br>Tools: Linux, Python, Matlab, Git, PEET", color: "rgba(255,0,0,0.5)" },
-        { name: "2020-06 - 2020-11, Collins Aerospace on behalf of AKKA, Heidelberg (Germany)", lat: 49.42475767051419, lon: 8.637370994524945, desc: "Mechanical/Electrical Test Engineer<br><br>• Test plans for new reaction wheels<br>• Thermal vacuum chamber tests (with thermistors+thermal camera)<br>• Concept generation of blocking mechanisms for the rotor of a magnetic bearing wheel<br>• Electrical measurements on transformers<br>• Re-assembly of a force measurement test bench (Hexapod)<br><br>Tools: TV chamber, Thermal camera, Wheel controller, Oscilloscope,<br>ECSS-E-ST-10-03C, ECSS-E-ST-10-02C, ECSS-Q-ST-70-02C", color: "rgba(255,0,0,0.5)" },
-        { name: "2022-01 - now, CNMCA (Italian Air Force) on behalf of Akkodis, Pomezia (Italy)", lat: 41.671332833990675, lon: 12.452481741310592, desc: "Software Engineer for operational meteorology<br><br>• Handling and archiving of satellite (MSG, MTG, Aqua/Terra, SUOMI-NPP, NOAA-POES, GOES, METOP, Himawari, Feng-Yun), radar, and lightning data<br>• Data processing and visualization<br>• Pipeline creation and automation<br>• Software maintenance and modernization<br>• Improvement of meteorological algorithms<br>• Image filtering/processing<br>• Validation and calibration of rain estimation products<br>• Distribution of final products to end users<br>• SW Manuals and Documentation<br><br>Tools: Bash, Python, Fortran90/77, Matlab, C, Satpy (Pytroll), gdal, cartopy, matplotlib, basemap, pyproj, keras/tensorflow, CGI 2met!, NWCGEO/NWCPY, EUMDAC, European Weather Cloud, Image Magick, crontab, ecflow, eccodes, Trello, RT-STPS, CSPP, IPOPP/MODISL1DB, Panoply, McIDAS<br>Data formats: BUFR, GRIB1/2, NETCDF, HDF, HRIT, LRIT, CADU, PDS, XPIF, CSV, ASCII, binary", color: "rgba(255,0,0,0.5)" },
+        { name: "2008-09 - 2013-06, Liceo Scientifico Piccinini, Pesaro (Italy)", lat: 43.920571537400825, lon: 12.90766057099907, desc: "<span style='color: blue;'>Scientific High School Diploma</span><br>Final grade: 100/100", color: "rgba(0,0,255,0.5)" },
+        { name: "2011-09 - 2012-06, St. Joseph by-the-Sea, Staten Island (NY)", lat: 40.5258, lon: -74.1774, desc: "<span style='color: blue;'>Senior Year in the US</span>", color: "rgba(0,0,255,0.5)" },
+        { name: "2013-10 - 2016-07, Politecnico di Milano (Italy)", lat: 45.5015632602915, lon: 9.154596748402858, desc: "<span style='color: blue;'>BSc in Aerospace Engineering</span><br>Final grade: 102/110<br><br>Major focus: Mathematical and numerical analysis, Physics, Statics and dynamics of rigid bodies and fluids, Structural analysis, Fundamentals of aerospace systems, Thermodynamics, Materials, Electronics, Control theory, Propulsion", color: "rgba(0,0,255,0.5)" },
+        { name: "2016-09 - 2022-03, TU Delft (the Netherlands)", lat: 51.99011433034388, lon: 4.375579094773364, desc: "<span style='color: blue;'>MSc in Space Engineering</span><br>Final grade: 7.5/10<br><br>Major focus: Space Systems Engineering, Microsatellites, Mechatronics and Robotics, Space Instrumentation, Space Propulsion, Orbital Mechanics<br><br>MSc Thesis: <a href='https://repository.tudelft.nl/record/uuid:e04fab02-bfa6-47f5-b9be-1e85b2abf416'>Microvibration test bench for tiny reaction wheels</a><br>          Tools: Matlab, CATIA V5, Arduino, MPU6050 Gyroscope, Hall Sensor, Makerbot 3D Printer, Python (OpenCV), ECSS-E-HB-32-26A", color: "rgba(0,0,255,0.5)" },
+        { name: "2017-09 - 2018-02, Airbus Defence & Space, Friedrichshafen (Germany)", lat: 47.669501862481646, lon: 9.389315603441345, desc: "<span style='color: red;'>Software Engineering internship (METimage radiometer)</span><br><br>• Development of reference frame management and manipulation toolbox<br>• Integration of DOORS output in the performance database (geometric/radiometric models)<br>• Integration of the reference frames toolbox in PEET (Pointing Error Engineering Tool, by ESA)<br>• Line Of Sight 3D animation with VPython to visualize pointing errors<br>• Unit testing of GPP/IDS (Ground Processor Prototype/Instrument Data Simulator) Software<br><br>Tools: Linux, Python, Matlab, Git, PEET", color: "rgba(255,0,0,0.5)" },
+        { name: "2020-06 - 2020-11, Collins Aerospace on behalf of AKKA, Heidelberg (Germany)", lat: 49.42475767051419, lon: 8.637370994524945, desc: "<span style='color: red;'>Mechanical/Electrical Test Engineer</span><br><br>• Test plans for new reaction wheels<br>• Thermal vacuum chamber tests (with thermistors+thermal camera)<br>• Concept generation of blocking mechanisms for the rotor of a magnetic bearing wheel<br>• Electrical measurements on transformers<br>• Re-assembly of a force measurement test bench (Hexapod)<br><br>Tools: TV chamber, Thermal camera, Wheel controller, Oscilloscope,<br>ECSS-E-ST-10-03C, ECSS-E-ST-10-02C, ECSS-Q-ST-70-02C", color: "rgba(255,0,0,0.5)" },
+        { name: "2022-01 - now, CNMCA (Italian Air Force) on behalf of Akkodis, Pomezia (Italy)", lat: 41.671332833990675, lon: 12.452481741310592, desc: "<span style='color: red;'>Software Engineer for operational meteorology</span><br><br>• Handling and archiving of satellite (MSG, MTG, Aqua/Terra, SUOMI-NPP, NOAA-POES, GOES, METOP, Himawari, Feng-Yun), radar, and lightning data<br>• Data processing and visualization<br>• Pipeline creation and automation<br>• Software maintenance and modernization<br>• Improvement of meteorological algorithms<br>• Image filtering/processing<br>• Validation and calibration of rain estimation products<br>• Distribution of final products to end users<br>• SW Manuals and Documentation<br><br>Tools: Bash, Python, Fortran90/77, Matlab, C, Satpy (Pytroll), gdal, cartopy, matplotlib, basemap, pyproj, keras/tensorflow, CGI 2met!, NWCGEO/NWCPY, EUMDAC, European Weather Cloud, Image Magick, crontab, ecflow, eccodes, Trello, RT-STPS, CSPP, IPOPP/MODISL1DB, Panoply, McIDAS<br>Data formats: BUFR, GRIB1/2, NETCDF, HDF, HRIT, LRIT, CADU, PDS, XPIF, CSV, ASCII, binary", color: "rgba(255,0,0,0.5)" },
     ];
 
     var markers = [];
