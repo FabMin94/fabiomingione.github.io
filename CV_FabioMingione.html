@@ -146,6 +146,8 @@
             right: 4%;
             display: inline-block;
             z-index: 9999;
+            width: 90px;
+            height: 90px;
         }
         /* Contact Button */
         .dropdown {
@@ -213,7 +215,7 @@
             padding: 10px 15px;
             font-size: 20px;
             cursor: pointer;
-            z-index: 1000;
+            z-index: 10000;
         }
         .nav-button:hover {
             background: rgba(0, 0, 0, 0.8);
@@ -247,7 +249,7 @@
         @media (max-width: 1320px) {
             #photo {
                 top: 7%;
-                left: 60%;
+                left: 57%;
             }
 
             .desktop {
@@ -273,6 +275,38 @@
             .sections {
                 font-size: 16px;
             }
+
+            .top-buttons, .bottom-buttons {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 90%;
+                z-index: 1000;
+                gap: 10px;
+            }
+            .top-buttons { top: calc(5% + 130px); }
+            .bottom-buttons { top: 90%; }
+            .info-button { min-width: 220px; }
+            .dropdown-info { width: 220px; }
+            .nav-button { top: 50%; }
+            #prev { right: calc(94% - 30px); }
+            #next { left: calc(94% - 30px); }
+            .leaflet-popup-content {
+                max-height: 300px !important;
+                word-wrap: break-word;
+                overflow: auto;
+            }
+        }
+
+        @media (max-height: 760px) {
+            .leaflet-popup-content {
+                max-height: 300px !important;
+                word-wrap: break-word;
+                overflow: auto;
+            }
         }
 
         @media (max-width: 700px) {
@@ -281,6 +315,12 @@
                 max-height: 200px !important;
                 word-wrap: break-word;
                 overflow: auto;
+            }
+            .info-button {
+                min-width: 180px;
+            }
+            .dropdown-info {
+                width: 180px;
             }
         }
 
@@ -309,6 +349,18 @@
             #photo {
                 top: 7.5%;
                 left: 65%;
+            }
+        }
+
+        @media (max-width: 410px) {
+            .info-button {
+                min-width: 160px;
+            }
+            .dropdown-info {
+                width: 160px;
+            }
+            .top-buttons, .bottom-buttons {
+                gap: 5px;
             }
         }
     </style>
@@ -357,28 +409,28 @@
 
 <div class="top-buttons">
     <div class="dropcont">
-        <div class="info-button" id="coding-skills" data-dropdown="coding-dropdown">Coding Skills</div>
-        <div id="coding-dropdown" class="dropdown-info">
+        <div class="info-button" id="coding-skills" data-dropdown="coding-dropdown-mobile">Coding Skills</div>
+        <div id="coding-dropdown-mobile" class="dropdown-info">
             <p>Bash <br><div class="grey">Python</div> Matlab <br> <div class="grey">Fortran 90/77 </div> C <br> <div class="grey">HTML/CSS </div> Javascript/jQuery <br><div class="grey"> Java </div> Git</p>
         </div> 
     </div>
     <div class="dropcont">
-        <div class="info-button" id="languages" data-dropdown="languages-dropdown">Languages</div>
-        <div id="languages-dropdown" class="dropdown-info">
+        <div class="info-button" id="languages" data-dropdown="languages-dropdown-mobile">Languages</div>
+        <div id="languages-dropdown-mobile" class="dropdown-info">
             <p>ITALIAN - Mother tongue <br> <div class="grey">ENGLISH - Fluent <br> • TOEFL iBT (2016-05): 106/120 <br> • GRE General Test (2016-04): <br>Verbal 157/170<br>Quantitative 163/170<br>Writing 4.0/6.0</div> SPANISH - Intermediate <br><div class="grey lower-corners"> GERMAN - Beginner <br> • Erasmus+ OLS Test (2018-02): B2</div> </p>
         </div>
     </div>
 </div>
 <div class="bottom-buttons">
     <div class="dropcont">
-        <div class="info-button" id="additional-courses" data-dropdown="courses-dropdown">Additional Courses</div>
-        <div id="courses-dropdown" class="dropdown-info">
+        <div class="info-button lower-corners" id="additional-courses" data-dropdown="courses-dropdown-mobile">Additional Courses</div>
+        <div id="courses-dropdown-mobile" class="dropdown-info">
             <p> <a href="https://www.udemy.com/certificate/UC-87d50284-7b2d-495d-9aaa-8fc6139e5791/" >Deep Learning A-Z: Hands-On Artificial Neural Networks (Udemy)</a> <br> <div class="grey">International School on Applications with the Newest Multispectral Environmental Satellites (2022-06-20/29, EUMETSAT)</div> <a href="https://www.udemy.com/certificate/UC-874b40d2-4252-4546-8d3c-89ee534b6059/">Learn JIRA with real-world examples (+Confluence bonus) (Udemy)</a> <br> <div class="grey"><a href="https://www.udemy.com/certificate/UC-33852ead-e350-4e8d-aa40-3fb14850eebc/">Git Complete: The definitive, step-by-step guide to Git (Udemy)</a></div> <a href="https://courses.edx.org/certificates/89a5c5ba05d74fccb5da216a4ba3d8db">The Quantum Internet and Quantum Computers: How Will They Change the World? (DelftX)</a></p>
         </div>
     </div>
     <div class="dropcont">
-        <div class="info-button" id="hobbies" data-dropdown="hobbies-dropdown">Hobbies</div>
-        <div id="hobbies-dropdown" class="dropdown-info">
+        <div class="info-button lower-corners" id="hobbies" data-dropdown="hobbies-dropdown-mobile">Hobbies</div>
+        <div id="hobbies-dropdown-mobile" class="dropdown-info">
             <p>Chess <br> <div class="grey">Soccer</div> Running <br> <div class="grey">Hiking</div> Guitar <br> <div class="grey">Piano</div> Car maintenance <br> <div class="grey lower-corners">Traveling</div></p>
         </div>
     </div>
@@ -386,7 +438,7 @@
 
 <!-- Photo -->
 <div id="photo">
-    <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/J06vKym6/CVphoto-fabio.png' border='0' alt='CVphoto-fabio'/></a>
+    <a target='_blank'><img src='https://i.postimg.cc/J06vKym6/CVphoto-fabio.png' border='0' alt='CVphoto-fabio'/></a>
 </div>
 
 <!-- Contacts dropdown menu -->
@@ -516,7 +568,13 @@ var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
             document.querySelectorAll(".sections").forEach(el => el.style.display = 'none');
             document.getElementById(currentElement.section).style.display = 'block';
             // Show dropdown for buttons
-            let dropdown = document.getElementById(currentElement.dropdown);
+            const mq = window.matchMedia( "(min-width: 1320px)" );
+            if (mq.matches) {
+                var ddname = currentElement.dropdown
+            } else {
+                var ddname = currentElement.dropdown + '-mobile'
+            }
+            let dropdown = document.getElementById(ddname);
             if (dropdown) {
                 dropdown.style.display = "block";
             }
