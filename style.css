@@ -150,6 +150,21 @@ html, body {
     width: 90px;
     height: 90px;
 }
+/* Source code link */
+#source-code {
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    color: white;
+    font-size: 16px;
+    display: inline-block;
+    z-index: 9999;
+}
+
+#source-code:hover {
+    text-decoration: underline !important;
+}
+
 /* Contact Button */
 .dropdown {
     position: absolute;
